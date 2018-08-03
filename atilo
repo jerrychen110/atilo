@@ -320,7 +320,7 @@ echo -e '#!/bin/bash
 
 apt update
 apt install -y gnupg gnupg1 gnupg2
-apt-key adv --recv ED444FF07D8D0BF6
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED444FF07D8D0BF6
 export kalimirrors="deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib\ndeb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib"
 export mirrorspath="/etc/apt/sources.list"
 echo ${kalimirrors} > ${mirrorspath}
@@ -335,5 +335,5 @@ $PREFIX/bin/start${cmd} "bash /install.sh"
 #&& rm install.sh
 # 全部完成
 
-#rm ${cmd}.tar.xz
+rm ${cmd}.tar
 tips "全部完成 \n启动${cmd}的命令'start${cmd}'.\nAll done \nuse 'start${cmd}' to run."
