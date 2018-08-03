@@ -334,5 +334,5 @@ $PREFIX/bin/start${cmd} "bash /install.sh"
 #&& rm install.sh
 # 全部完成
 
-rm ${cmd}.tar.xz
+#rm ${cmd}.tar.xz
 tips "全部完成 \n启动${cmd}的命令'start${cmd}'.\nAll done \nuse 'start${cmd}' to run."
