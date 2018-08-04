@@ -265,7 +265,7 @@ if [ ${cmd} == "fedora" ];then
     wget https://raw.githubusercontent.com/YadominJinta/atilo/master/repos/fedora/${ARCH}/fedora.repo -O ~/${cmd}/etc/yum.repos.d/fedora.repo
 else
     xz -d ${cmd}.tar.xz
-    proot --link2symlink tar xvf ${cmd}.tar  
+    proot --link2symlink tar -pxvf ${cmd}.tar  
 fi
 
 # 设置 DNS
