@@ -74,61 +74,10 @@ fi
 
 
 case "$1" in
-    arch)
-        aarch64=https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-aarch64-latest.tar.gz
-        arm=https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-armv7-latest.tar.gz
-
-        cmd=arch
-        zip=pzx
-        mirrors="Server = http://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/\$arch/\$repo"
-        mirrorspath="etc/pacman.d/mirrorlist"
-        ;;
-
-    ubuntu)
-        curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/bionic/${time_arch}/default/" -o html.html >/dev/null 2>&1
-        time1=`sed -n '7p' html.html | cut -d'>' -f2 | cut -d'<' -f1`
-        rm html.html
-        aarch64=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/bionic/arm64/default/${time1}rootfs.tar.xz
-        arm=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/bionic/armhf/default/${time1}rootfs.tar.xz
-        cmd=ubuntu
-        zip=pJx
-        mirrors="deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic main restricted universe multiverse\ndeb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-updates main restricted universe multiverse"
-        mirrorspath="etc/apt/sources.list"
-            ;;
-
-    fedora)
-        aarch64=http://ftp.sjtu.edu.cn/fedora/linux/releases/28/Container/aarch64/images/Fedora-Container-Base-28-1.1.aarch64.tar.xz
-        arm=http://ftp.sjtu.edu.cn/fedora/linux/releases/28/Container/armhfp/images/Fedora-Container-Minimal-Base-28-1.1.armhfp.tar.xz
-        cmd=fedora
-        ;;
-
-    kali)
-        curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/${time_arch}/default/" -o html2.html >/dev/null 2>&1
-    time2=`sed -n '7p' html2.html | cut -d'>' -f2 | cut -d'<' -f1`              
-    rm html2.html
-        aarch64=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/arm64/default/${time2}rootfs.tar.xz
-        arm=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/armhf/default/${time2}rootfs.tar.xz
-        cmd=kali
-        zip=pzx
-        mirrors="deb http://mirrors.tuna.tsinghua.edu.cn/debian  stretch             main\ndeb http://mirrors.tuna.tsinghua.edu.cn/debian-security/ stretch/updates main"
-        mirrorspath="etc/apt/sources.list"
-        ;;
-
-    debian)
-        curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/${time_arch}/default/" -o html2.html >/dev/null 2>&1
-    time2=`sed -n '7p' html2.html | cut -d'>' -f2 | cut -d'<' -f1`              
-    rm html2.html
-        aarch64=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/arm64/default/${time2}rootfs.tar.xz
-        arm=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/armhf/default/${time2}rootfs.tar.xz
-        cmd=debian
-        zip=pzx
-        mirrors="deb http://mirrors.tuna.tsinghua.edu.cn/debian  stretch             main\ndeb http://mirrors.tuna.tsinghua.edu.cn/debian-security/ stretch/updates main"
-        mirrorspath="etc/apt/sources.list"
-        ;;
 
     alpine)
-       aarch64=https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.6/releases/aarch64/alpine-minirootfs-3.6.0-aarch64.tar.gz
-       arm=https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.6/releases/armhf/alpine-minirootfs-3.6.0-armhf.tar.gz
+        aarch64=https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.6/releases/aarch64/alpine-minirootfs-3.6.0-aarch64.tar.gz
+        arm=https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.6/releases/armhf/alpine-minirootfs-3.6.0-armhf.tar.gz
         cmd=alpine
         zip=pzx
         sh=ash
@@ -141,8 +90,70 @@ case "$1" in
         arm=https://mirrors.tuna.tsinghua.edu.cn/anthon/aosc-os/os-armel/buildkit/aosc-os-buildkit_20170227_armel.tar.xz
         cmd=aosc
         zip=pzx
-        #自带国内源
         ;;
+
+    arch)
+        aarch64=https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-aarch64-latest.tar.gz
+        arm=https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-armv7-latest.tar.gz
+        cmd=arch
+        zip=pzx
+        mirrors="Server = http://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/\$arch/\$repo"
+        mirrorspath="etc/pacman.d/mirrorlist"
+        ;;
+
+    centos)
+        aarch64=https://mirrors.tuna.tsinghua.edu.cn/centos-altarch/7.5.1804/os/aarch64/LiveOS/squashfs.img
+        arm=https://mirrors.tuna.tsinghua.edu.cn/centos-altarch/7.5.1804/isos/armhfp/CentOS-Userland-7-armv7hl-generic-Minimal-1804-sda.raw.xz
+        cmd=centos
+        ;;
+
+    debian)
+        curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/${time_arch}/default/" -o html2.html >/dev/null 2>&1
+        time2=`sed -n '7p' html2.html | cut -d'>' -f2 | cut -d'<' -f1`              
+        rm html2.html
+        aarch64=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/arm64/default/${time2}rootfs.tar.xz
+        arm=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/armhf/default/${time2}rootfs.tar.xz
+        cmd=debian
+        zip=pzx
+        mirrors="deb http://mirrors.tuna.tsinghua.edu.cn/debian  stretch             main\ndeb http://mirrors.tuna.tsinghua.edu.cn/debian-security/ stretch/updates main"
+        mirrorspath="etc/apt/sources.list"
+        ;;
+
+    fedora)
+        aarch64=http://ftp.sjtu.edu.cn/fedora/linux/releases/28/Container/aarch64/images/Fedora-Container-Base-28-1.1.aarch64.tar.xz
+        arm=http://ftp.sjtu.edu.cn/fedora/linux/releases/28/Container/armhfp/images/Fedora-Container-Minimal-Base-28-1.1.armhfp.tar.xz
+        cmd=fedora
+        ;;
+
+    kali)
+        curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/${time_arch}/default/" -o html2.html >/dev/null 2>&1
+        time2=`sed -n '7p' html2.html | cut -d'>' -f2 | cut -d'<' -f1`              
+        rm html2.html
+        aarch64=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/arm64/default/${time2}rootfs.tar.xz
+        arm=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/armhf/default/${time2}rootfs.tar.xz
+        cmd=kali
+        zip=pzx
+        mirrors="deb http://mirrors.tuna.tsinghua.edu.cn/debian  stretch             main\ndeb http://mirrors.tuna.tsinghua.edu.cn/debian-security/ stretch/updates main"
+        mirrorspath="etc/apt/sources.list"
+        ;;
+
+    ubuntu)
+        curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/bionic/${time_arch}/default/" -o html.html >/dev/null 2>&1
+        time1=`sed -n '7p' html.html | cut -d'>' -f2 | cut -d'<' -f1`
+        rm html.html
+        aarch64=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/bionic/arm64/default/${time1}rootfs.tar.xz
+        arm=https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/bionic/armhf/default/${time1}rootfs.tar.xz
+        cmd=ubuntu
+        zip=pJx
+        mirrors="deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic main restricted universe multiverse\ndeb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-updates main restricted universe multiverse"
+        mirrorspath="etc/apt/sources.list"
+        ;;
+
+
+
+
+
+
 #卸载
 #######
     -r)
@@ -207,12 +218,11 @@ case "$1" in
 
 echo -e "\033[33m用法:\033[32m $0 [选项] [参数]
 
-
-fedora              安装/Install fedora
-debian              安装/Install debian
 alpine              安装/Install alpine
 aosc                安装/Install aosc
 arch                安装/Install archlinux
+debian              安装/Install debian
+fedora              安装/Install fedora
 ubuntu              安装/Install ubuntu
 kali                安装/Install kali
 -r              删除安装的linux/Delete Installed
@@ -263,6 +273,9 @@ if [ ${cmd} == "fedora" ];then
     mkdir ~/${cmd}/etc/yum.repos.d/bak
     mv ~/${cmd}/etc/yum.repos.d/fedora.repo ~/${cmd}/etc/yum.repos.d/bak/
     wget https://raw.githubusercontent.com/YadominJinta/atilo/master/repos/fedora/${ARCH}/fedora.repo -O ~/${cmd}/etc/yum.repos.d/fedora.repo
+elif [ ${cmd} == "centos" ];then
+    mkdir ~/${cmd}
+    hmount squashfs.img ~/${cmd}
 else
     xz -d ${cmd}.tar.xz
     proot --link2symlink tar -pxvf ${cmd}.tar  
@@ -327,6 +340,9 @@ echo ${kalimirrors} > ${mirrorspath}
 apt update
 apt upgrade -y
 apt clean' > ~/kali/install.sh
+elif [ ${cmd} == "centos"]
+then
+$PREFIX/usr/bin/start{cmd}
 elif [ ${cmd} == "arch" ]
 then
 $PREFIX/usr/bin/start{cmd} "pacman-key --init && pacman-key --populate archlinuxarm "
