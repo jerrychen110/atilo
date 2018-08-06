@@ -101,12 +101,6 @@ case "$1" in
         mirrorspath="etc/pacman.d/mirrorlist"
         ;;
 
-    centos)
-        aarch64=https://mirrors.tuna.tsinghua.edu.cn/centos-altarch/7.5.1804/os/aarch64/LiveOS/squashfs.img
-        arm=https://mirrors.tuna.tsinghua.edu.cn/centos-altarch/7.5.1804/isos/armhfp/CentOS-Userland-7-armv7hl-generic-Minimal-1804-sda.raw.xz
-        cmd=centos
-        ;;
-
     debian)
         curl "https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/debian/stretch/${time_arch}/default/" -o html2.html >/dev/null 2>&1
         time2=`sed -n '7p' html2.html | cut -d'>' -f2 | cut -d'<' -f1`              
@@ -273,9 +267,6 @@ if [ ${cmd} == "fedora" ];then
     mkdir ~/${cmd}/etc/yum.repos.d/bak
     mv ~/${cmd}/etc/yum.repos.d/fedora.repo ~/${cmd}/etc/yum.repos.d/bak/
     wget https://raw.githubusercontent.com/YadominJinta/atilo/master/repos/fedora/${ARCH}/fedora.repo -O ~/${cmd}/etc/yum.repos.d/fedora.repo
-elif [ ${cmd} == "centos" ];then
-    mkdir ~/${cmd}
-    hmount squashfs.img ~/${cmd}
 else
     xz -d ${cmd}.tar.xz
     proot --link2symlink tar -pxvf ${cmd}.tar  
@@ -340,9 +331,14 @@ echo ${kalimirrors} > ${mirrorspath}
 apt update
 apt upgrade -y
 apt clean' > ~/kali/install.sh
-elif [ ${cmd} == "centos"]
-then
-$PREFIX/usr/bin/start{cmd}
+echo "进入kali系统"
+./start${cmd}
+echo "安装kali工具包/Installing kali tool packages,Please be patient"
+cd ~/${cmd}
+git clone https://github.com/LionSec/katoolin.git && cp katoolin/katoolin.py usr/bin/katoolin
+chmod +x usr/bin/katoolin
+
+./katoolin
 elif [ ${cmd} == "arch" ]
 then
 $PREFIX/usr/bin/start{cmd} "pacman-key --init && pacman-key --populate archlinuxarm "
