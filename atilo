@@ -330,7 +330,7 @@ export mirrorspath="/etc/apt/sources.list"
 echo ${kalimirrors} > ${mirrorspath}
 apt update
 apt upgrade -y
-apt clean' > ~/kali/install.sh
+apt clean
 echo "进入kali系统"
 ./start${cmd}
 echo "安装kali工具包/Installing kali tool packages,Please be patient"
@@ -338,6 +338,8 @@ cd ~/${cmd}
 git clone https://github.com/LionSec/katoolin.git && cp katoolin/katoolin.py /usr/bin/katoolin
 chmod +x /usr/bin/katoolin
 ./katoolin
+' > ~/kali/install.sh
+
 elif [ ${cmd} == "arch" ]
 then
 $PREFIX/usr/bin/start{cmd} "pacman-key --init && pacman-key --populate archlinuxarm "
