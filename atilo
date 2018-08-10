@@ -333,13 +333,14 @@ apt upgrade -y
 apt clean
 ' > ~/kali/install.sh
 echo -e '#!/bin/bash
-echo "进入kali系统"
-start${cmd}
+echo "安装依赖包/Installing dependency packages,Please be patient"
+apt-get install -y git
+apt-get install -y python
 echo "安装kali工具包/Installing kali tool packages,Please be patient"
-cd ~/${cmd}
-git clone https://github.com/LionSec/katoolin.git && cp katoolin/katoolin.py /usr/bin/katoolin
+git clone https://github.com/LionSec/katoolin.git
+cp katoolin/katoolin.py /usr/bin/katoolin
 chmod +x /usr/bin/katoolin
-./katoolin' > ~/kali/tools.sh
+katoolin' > ~/kali/root/tools.sh
 
 elif [ ${cmd} == "arch" ]
 then
